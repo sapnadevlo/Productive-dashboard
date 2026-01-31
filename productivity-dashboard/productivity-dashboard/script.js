@@ -163,34 +163,44 @@ function dailyPlanner() {
 
 dailyPlanner()
 
-
 function motivationalQuote() {
-    var motivationQuoteContent = document.querySelector('.motivation-2 h1')
-    var motivationAuthor = document.querySelector('.motivation-3 h2')
-    var motivationCard = document.querySelector('.motivational-fullpage')
+    var motivationQuoteContent = document.querySelector('.motivation-2 h1');
+    var motivationAuthor = document.querySelector('.motivation-3 h2');
 
-    async function fetchQuote() {
-        try {
-            let response = await fetch('https://api.quotable.io/random')
-            let data = await response.json()
-
-            motivationQuoteContent.innerHTML = data.content
-            motivationAuthor.innerHTML = data.author
-        } catch (error) {
-            motivationQuoteContent.innerHTML = 'The only way to do great work is to love what you do.'
-            motivationAuthor.innerHTML = 'Steve Jobs'
+    const quotes = [
+        {
+            text: "The only way to do great work is to love what you do.",
+            author: "Steve Jobs"
+        },
+        {
+            text: "Don’t watch the clock; do what it does. Keep going.",
+            author: "Sam Levenson"
+        },
+        {
+            text: "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+            author: "Winston Churchill"
+        },
+        {
+            text: "Dream big and dare to fail.",
+            author: "Norman Vaughan"
         }
+    ];
+
+    function fetchQuote() {
+        let randomIndex = Math.floor(Math.random() * quotes.length);
+        motivationQuoteContent.innerHTML = quotes[randomIndex].text;
+        motivationAuthor.innerHTML = quotes[randomIndex].author;
     }
 
-    fetchQuote()
-
-    // Fetch new quote when motivation card opens
-    motivationCard.addEventListener('click', function(e) {
-        if (e.target.classList.contains('motivation-2') || e.target.classList.contains('motivation-3') || e.target.closest('.motivation-2') || e.target.closest('.motivation-3')) {
-            fetchQuote()
-        }
-    })
+    fetchQuote();
+    setInterval(fetchQuote, 4000);
 }
+
+motivationalQuote();
+
+
+
+   
 
 motivationalQuote()
 
